@@ -1,0 +1,13 @@
+# General
+database.properties
+
+# IntellijIdea files
+*.iml
+.idea
+target
+src/test/
+
+# Eclipse files
+.settings
+.classpath
+.project

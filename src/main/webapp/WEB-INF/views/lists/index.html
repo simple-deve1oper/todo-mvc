@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Списки задач</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	</head>
+	<body style="background-color: #e6f2ff;">
+		<nav style="background-color: #e6f2ff;" class="navbar navbar-expand-lg">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/">ToDo App</a>
+			</div>
+		</nav>
+		<hr class="mt-0 mb-0">
+
+		<div class="container">
+			<h1>Списки задач</h1>
+
+			<div th:if="${lists.isEmpty()}">
+				<p style="color: red;" class="fs-1">Не создано ни одного списка задач</p>
+			</div>
+			<div th:unless="${lists.isEmpty()}">
+				<table class="table text-center">
+					<tbody>
+						<tr th:each="value : ${lists}">
+							<td>
+								<a th:href="@{/tasks/{id}(id=${value.getId()})}"  th:text="${value.getName()}">value</a>
+							</td>
+							<td>
+								<form th:action="@{/edit/{id}(id=${value.getId()})}" th:method="GET">
+									<button class="btn btn-warning btn-sm">Переименовать</button>
+								</form>
+							</td>
+							<td>
+								<form th:action="@{/delete/{id}(id=${value.getId()})}" th:method="DELETE">
+									<button class="btn btn-danger btn-sm">Удалить</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="container">
+			<form action="/add" method="GET">
+				<button class="btn btn-primary">Добавить список задач</button>
+			</form>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	</body>
+</html>
